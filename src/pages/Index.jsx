@@ -86,6 +86,9 @@ const Index = () => {
         </Box>
       )}
 
+      <Button position="fixed" bottom="80px" right="20px" borderRadius="full" size="lg" colorScheme="blue" onClick={() => console.log("Add button clicked")} zIndex={2}>
+        Add
+      </Button>
       <Flex as="nav" align="center" justify="space-around" p={4} borderTopWidth={1} position="fixed" bottom={0} left={0} right={0} bg="white" zIndex={1}>
         <Button variant="ghost" onClick={() => setPage("home")}>
           <FaHome />
