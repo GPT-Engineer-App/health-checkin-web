@@ -1,6 +1,35 @@
 import { useState, useEffect } from "react";
-import { Box, VStack, Text, Button, Heading, Flex, Spacer, Image } from "@chakra-ui/react";
+import { Box, VStack, Text, Button, Heading, Flex, Spacer, Image, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Select, Input } from "@chakra-ui/react";
 import { FaHome, FaChartBar } from "react-icons/fa";
+
+const AddModal = ({ isOpen, onClose, onAdd }) => {
+  const [type, setType] = useState("Meal");
+  const [text, setText] = useState("");
+
+  return (
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>Add Entry</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody>
+          <Select value={type} onChange={(e) => setType(e.target.value)} mb={4}>
+            <option value="Meal">Meal</option>
+            <option value="Activity">Activity</option>
+            <option value="Rest">Rest</option>
+          </Select>
+          <Input value={text} onChange={(e) => setText(e.target.value)} placeholder="Enter details" />
+        </ModalBody>
+        <ModalFooter>
+          <Button colorScheme="blue" mr={3} onClick={() => onAdd(type, text)}>
+            Add
+          </Button>
+          <Button onClick={onClose}>Cancel</Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+  );
+};
 // Remove Supabase imports and initialization
 
 const Index = () => {
@@ -8,6 +37,15 @@ const Index = () => {
   const [page, setPage] = useState("home");
   const [score, setScore] = useState(0);
   const [activities, setActivities] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  const handleAdd = (type, text) => {
+    console.log(`Adding ${type}: ${text}`);
+    closeModal();
+  };
 
   useEffect(() => {
     setUser({ id: 1, name: "John Doe" });
@@ -86,7 +124,7 @@ const Index = () => {
         </Box>
       )}
 
-      <Button position="fixed" bottom="80px" right="20px" borderRadius="full" size="lg" colorScheme="blue" onClick={() => console.log("Add button clicked")} zIndex={2}>
+      <Button position="fixed" bottom="80px" right="20px" borderRadius="full" size="lg" colorScheme="blue" onClick={openModal} zIndex={2}>
         Add
       </Button>
       <Flex as="nav" align="center" justify="space-around" p={4} borderTopWidth={1} position="fixed" bottom={0} left={0} right={0} bg="white" zIndex={1}>
@@ -99,6 +137,7 @@ const Index = () => {
           <Text ml={2}>Results</Text>
         </Button>
       </Flex>
+      <AddModal isOpen={isModalOpen} onClose={closeModal} onAdd={handleAdd} />
     </Box>
   );
 };
