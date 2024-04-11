@@ -51,7 +51,7 @@ const Index = () => {
   }
 
   return (
-    <Box maxW="600px" mx="auto">
+    <Box maxW="600px" mx="auto" paddingBottom={16}>
       {page === "home" && (
         <VStack spacing={6} p={4}>
           <Heading size="lg" textAlign="center">
@@ -86,7 +86,7 @@ const Index = () => {
         </Box>
       )}
 
-      <Flex as="nav" align="center" justify="space-around" p={4} borderTopWidth={1}>
+      <Flex as="nav" align="center" justify="space-around" p={4} borderTopWidth={1} position="fixed" bottom={0} left={0} right={0} bg="white" zIndex={1}>
         <Button variant="ghost" onClick={() => setPage("home")}>
           <FaHome />
           <Text ml={2}>Home</Text>
