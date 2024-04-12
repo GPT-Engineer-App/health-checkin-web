@@ -10,21 +10,24 @@ const AddModal = ({ isOpen, onClose, onAdd }) => {
     <Modal isOpen={isOpen} onClose={onClose} size="full">
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Chat</ModalHeader>
+        <ModalHeader>How did you do today?</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>
-          <Select value={type} onChange={(e) => setType(e.target.value)} mb={4}>
-            <option value="Meal">Meal</option>
-            <option value="Activity">Activity</option>
-            <option value="Rest">Rest</option>
-          </Select>
-          <Flex>
+        <ModalBody display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+          <Box as="span" fontSize="100px" color="gray.300">
+            🎤
+          </Box>
+          <Text fontSize="sm" color="gray.500">
+            Tap to speak
+          </Text>
+        </ModalBody>
+        <ModalFooter>
+          <Flex w="100%">
             <Input value={text} onChange={(e) => setText(e.target.value)} placeholder="Type a message..." mr={2} />
-            <Button colorScheme="blue" onClick={() => onAdd(type, text)}>
+            <Button colorScheme="blue" onClick={() => onAdd(text)}>
               Send
             </Button>
           </Flex>
-        </ModalBody>
+        </ModalFooter>
       </ModalContent>
     </Modal>
   );
@@ -41,8 +44,8 @@ const Index = () => {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  const handleAdd = (type, text) => {
-    console.log(`Adding ${type}: ${text}`);
+  const handleAdd = (text) => {
+    console.log(`Adding: ${text}`);
     closeModal();
   };
 
