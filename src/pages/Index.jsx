@@ -1,6 +1,29 @@
 import { useState, useEffect } from "react";
-import { Box, VStack, Text, Button, Heading, Flex, Spacer, Image, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Select, Input } from "@chakra-ui/react";
+import { Box, VStack, Text, Button, Heading, Flex, Spacer, Image, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Select, Input, Collapse } from "@chakra-ui/react";
 import { FaHome, FaChartBar, FaComments } from "react-icons/fa";
+
+const ResultCard = ({ title, result, description }) => {
+  const [show, setShow] = useState(false);
+
+  const handleToggle = () => setShow(!show);
+
+  return (
+    <Box borderWidth={1} borderRadius="md" p={4} mb={4}>
+      <Heading size="md" mb={2}>
+        {title}
+      </Heading>
+      <Text fontWeight="bold" mb={2}>
+        {result}
+      </Text>
+      <Collapse startingHeight={20} in={show}>
+        <Text mb={4}>{description}</Text>
+      </Collapse>
+      <Button size="sm" onClick={handleToggle} mt="1rem">
+        {show ? "Less" : "More"} Info
+      </Button>
+    </Box>
+  );
+};
 
 const AddModal = ({ isOpen, onClose, onAdd }) => {
   const [type, setType] = useState("Meal");
@@ -122,7 +145,14 @@ const Index = () => {
           <Heading size="lg" mb={4}>
             Results
           </Heading>
-          {/* Add results page content */}
+          <ResultCard title="Your age acceleration" result="4.5" description="The difference between your actual age and your calculated biological age shows how fast your epigenetic clock is ticking and is termed age acceleration. It is favourable to have a low age acceleration, preferably a negative number. On average in a population, the age acceleration is 0 (zero) and most of us have an age acceleration of ±2 years." />
+          <ResultCard title="Biological age" result="45.3 years" description="Your chronological and epigenetic biological age at the time of the sample." />
+          <ResultCard title="Fitness score" result="1%" description="Your epigenetically determined fitness. Your DNAmFitnessAge combines your biological age and epigenetically determined fitness. Your fitness score below shows your relative rank when compared to healthy Europeans of your age. For example, a score of 70 means that you score better than 70% of the people in your age group." />
+          <ResultCard title="Mortality risk" result="67%" description="The relative mortality risk that your epigenetic profile suggests you have when compared to the average person of your age." />
+          <ResultCard title="Risk of cancer" result="36%" description="The relative cancer risk that your epigenetic profile suggests you have when compared to the average person of your age." />
+          <ResultCard title="Risk of coronary heart disease" result="54%" description="The relative risk of coronary heart disease that your epigenetic profile suggests you have when compared to the average person of your age." />
+          <ResultCard title="Telomere length" result="below average" description="The estimated telomere length based on your epigenetic signature, as compared to the average person of your age." />
+          <ResultCard title="Smoking" result="12.5" description="The epigenetic imprint of your current and previous smoking. Environmental exposure and passive smoking may also leave an imprint. The number is in packyears." />
         </Box>
       )}
 
