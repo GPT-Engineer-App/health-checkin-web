@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import { Box, VStack, Text, Button, Heading, Flex, Spacer, Image, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Select, Input } from "@chakra-ui/react";
-import { FaHome, FaChartBar } from "react-icons/fa";
+import { FaHome, FaChartBar, FaComments } from "react-icons/fa";
 
 const AddModal = ({ isOpen, onClose, onAdd }) => {
   const [type, setType] = useState("Meal");
   const [text, setText] = useState("");
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} size="full">
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add Entry</ModalHeader>
+        <ModalHeader>Chat</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Select value={type} onChange={(e) => setType(e.target.value)} mb={4}>
@@ -18,14 +18,13 @@ const AddModal = ({ isOpen, onClose, onAdd }) => {
             <option value="Activity">Activity</option>
             <option value="Rest">Rest</option>
           </Select>
-          <Input value={text} onChange={(e) => setText(e.target.value)} placeholder="Enter details" />
+          <Flex>
+            <Input value={text} onChange={(e) => setText(e.target.value)} placeholder="Type a message..." mr={2} />
+            <Button colorScheme="blue" onClick={() => onAdd(type, text)}>
+              Send
+            </Button>
+          </Flex>
         </ModalBody>
-        <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={() => onAdd(type, text)}>
-            Add
-          </Button>
-          <Button onClick={onClose}>Cancel</Button>
-        </ModalFooter>
       </ModalContent>
     </Modal>
   );
@@ -125,7 +124,7 @@ const Index = () => {
       )}
 
       <Button position="fixed" bottom="80px" right="20px" borderRadius="full" size="lg" colorScheme="blue" onClick={openModal} zIndex={2}>
-        Add
+        <FaComments />
       </Button>
       <Flex as="nav" align="center" justify="space-around" p={4} borderTopWidth={1} position="fixed" bottom={0} left={0} right={0} bg="white" zIndex={1}>
         <Button variant="ghost" onClick={() => setPage("home")}>
