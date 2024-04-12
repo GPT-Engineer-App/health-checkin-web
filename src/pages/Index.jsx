@@ -13,7 +13,7 @@ const AddModal = ({ isOpen, onClose, onAdd }) => {
         <ModalHeader>How did you do today?</ModalHeader>
         <ModalCloseButton />
         <ModalBody display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-          <Box as="span" fontSize="100px" color="gray.300">
+          <Box as="span" fontSize="60px" color="gray.500" bg="gray.200" borderRadius="full" width="120px" height="120px" display="flex" alignItems="center" justifyContent="center">
             🎤
           </Box>
           <Text fontSize="sm" color="gray.500">
